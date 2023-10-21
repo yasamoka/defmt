@@ -83,8 +83,8 @@ impl Tag {
 /// Entry in [`Table`] combining a format string with its raw symbol
 #[derive(Debug, Eq, PartialEq)]
 pub struct TableEntry {
-    string: StringEntry,
-    raw_symbol: String,
+    pub string: StringEntry,
+    pub raw_symbol: String,
 }
 
 impl TableEntry {
@@ -104,8 +104,8 @@ impl TableEntry {
 /// A format string and it's [`Tag`]
 #[derive(Debug, Eq, PartialEq)]
 pub struct StringEntry {
-    tag: Tag,
-    string: String,
+    pub tag: Tag,
+    pub string: String,
 }
 
 impl StringEntry {
@@ -268,6 +268,10 @@ impl Table {
             Encoding::Raw => Box::new(stream::Raw::new(self)),
             Encoding::Rzcobs => Box::new(stream::Rzcobs::new(self)),
         }
+    }
+
+    pub fn entries(&self) -> &BTreeMap<usize, TableEntry> {
+        &self.entries
     }
 
     pub fn encoding(&self) -> Encoding {
